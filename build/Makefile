@@ -57,10 +57,10 @@ RM = /usr/local/Cellar/cmake/3.20.3/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib
+CMAKE_SOURCE_DIR = /Users/matiss/Desktop/matLib
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build
+CMAKE_BINARY_DIR = /Users/matiss/Desktop/matLib/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -75,6 +75,16 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/local/Cellar/cmake/3.20.3/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -87,9 +97,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles /Users/matiss/Desktop/matLib/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,24 +127,50 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named app
+# Target rules for targets named gtest_src
 
 # Build rule for target.
-app: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app
-.PHONY : app
+gtest_src: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_src
+.PHONY : gtest_src
 
 # fast build rule for target.
-app/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/build
-.PHONY : app/fast
+gtest_src/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtest_src.dir/build.make CMakeFiles/gtest_src.dir/build
+.PHONY : gtest_src/fast
+
+#=============================================================================
+# Target rules for targets named googletest
+
+# Build rule for target.
+googletest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest
+.PHONY : googletest
+
+# fast build rule for target.
+googletest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/googletest.dir/build.make CMakeFiles/googletest.dir/build
+.PHONY : googletest/fast
+
+#=============================================================================
+# Target rules for targets named matrixLib_test
+
+# Build rule for target.
+matrixLib_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 matrixLib_test
+.PHONY : matrixLib_test
+
+# fast build rule for target.
+matrixLib_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrixLib_test.dir/build.make CMakeFiles/matrixLib_test.dir/build
+.PHONY : matrixLib_test/fast
 
 test.o: test.cpp.o
 .PHONY : test.o
 
 # target to build an object file
 test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrixLib_test.dir/build.make CMakeFiles/matrixLib_test.dir/test.cpp.o
 .PHONY : test.cpp.o
 
 test.i: test.cpp.i
@@ -142,7 +178,7 @@ test.i: test.cpp.i
 
 # target to preprocess a source file
 test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrixLib_test.dir/build.make CMakeFiles/matrixLib_test.dir/test.cpp.i
 .PHONY : test.cpp.i
 
 test.s: test.cpp.s
@@ -150,7 +186,7 @@ test.s: test.cpp.s
 
 # target to generate assembly for a file
 test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrixLib_test.dir/build.make CMakeFiles/matrixLib_test.dir/test.cpp.s
 .PHONY : test.cpp.s
 
 # Help Target
@@ -161,7 +197,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... app"
+	@echo "... test"
+	@echo "... googletest"
+	@echo "... gtest_src"
+	@echo "... matrixLib_test"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"

@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.20)
+
+project(matrixLib)
+
+include_directories(${PROJECT_SOURCE_DIR})
+add_library(matrixlib INTERFACE)
+target_include_directories(matrixlib INTERFACE matrixLib)
+
+add_executable(app test.cpp)
+target_link_libraries(matrixLib_test matrixlib)

@@ -1,3 +1,6 @@
-/Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles/rebuild_cache.dir
-/Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles/edit_cache.dir
-/Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles/app.dir
+/Users/matiss/Desktop/matLib/build/CMakeFiles/rebuild_cache.dir
+/Users/matiss/Desktop/matLib/build/CMakeFiles/test.dir
+/Users/matiss/Desktop/matLib/build/CMakeFiles/gtest_src.dir
+/Users/matiss/Desktop/matLib/build/CMakeFiles/googletest.dir
+/Users/matiss/Desktop/matLib/build/CMakeFiles/matrixLib_test.dir
+/Users/matiss/Desktop/matLib/build/CMakeFiles/edit_cache.dir

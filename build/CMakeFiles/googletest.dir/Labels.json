@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/CMakeFiles/googletest"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/CMakeFiles/googletest.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/CMakeFiles/googletest-complete.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-build.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-configure.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-download.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-install.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-mkdir.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-patch.rule"
+		},
+		{
+			"file" : "/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"googletest"
+		],
+		"name" : "googletest"
+	}
+}

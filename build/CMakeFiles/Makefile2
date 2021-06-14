@@ -54,16 +54,18 @@ RM = /usr/local/Cellar/cmake/3.20.3/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib
+CMAKE_SOURCE_DIR = /Users/matiss/Desktop/matLib
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build
+CMAKE_BINARY_DIR = /Users/matiss/Desktop/matLib/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/app.dir/all
+all: CMakeFiles/gtest_src.dir/all
+all: CMakeFiles/googletest.dir/all
+all: CMakeFiles/matrixLib_test.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +73,88 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/app.dir/clean
+clean: CMakeFiles/gtest_src.dir/clean
+clean: CMakeFiles/googletest.dir/clean
+clean: CMakeFiles/matrixLib_test.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/app.dir
+# Target rules for target CMakeFiles/gtest_src.dir
 
 # All Build rule for target.
-CMakeFiles/app.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles --progress-num=1,2 "Built target app"
-.PHONY : CMakeFiles/app.dir/all
+CMakeFiles/gtest_src.dir/all: CMakeFiles/googletest.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtest_src.dir/build.make CMakeFiles/gtest_src.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtest_src.dir/build.make CMakeFiles/gtest_src.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/matiss/Desktop/matLib/build/CMakeFiles --progress-num=9,10,11,12,13,14,15,16 "Built target gtest_src"
+.PHONY : CMakeFiles/gtest_src.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/app.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/app.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matrixLib/matrixLib/matrixLib/build/CMakeFiles 0
-.PHONY : CMakeFiles/app.dir/rule
+CMakeFiles/gtest_src.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles 16
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/gtest_src.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles 0
+.PHONY : CMakeFiles/gtest_src.dir/rule
 
 # Convenience name for target.
-app: CMakeFiles/app.dir/rule
-.PHONY : app
+gtest_src: CMakeFiles/gtest_src.dir/rule
+.PHONY : gtest_src
 
 # clean rule for target.
-CMakeFiles/app.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/clean
-.PHONY : CMakeFiles/app.dir/clean
+CMakeFiles/gtest_src.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtest_src.dir/build.make CMakeFiles/gtest_src.dir/clean
+.PHONY : CMakeFiles/gtest_src.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/googletest.dir
+
+# All Build rule for target.
+CMakeFiles/googletest.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/googletest.dir/build.make CMakeFiles/googletest.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/googletest.dir/build.make CMakeFiles/googletest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/matiss/Desktop/matLib/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target googletest"
+.PHONY : CMakeFiles/googletest.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/googletest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/googletest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles 0
+.PHONY : CMakeFiles/googletest.dir/rule
+
+# Convenience name for target.
+googletest: CMakeFiles/googletest.dir/rule
+.PHONY : googletest
+
+# clean rule for target.
+CMakeFiles/googletest.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/googletest.dir/build.make CMakeFiles/googletest.dir/clean
+.PHONY : CMakeFiles/googletest.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/matrixLib_test.dir
+
+# All Build rule for target.
+CMakeFiles/matrixLib_test.dir/all: CMakeFiles/gtest_src.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrixLib_test.dir/build.make CMakeFiles/matrixLib_test.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrixLib_test.dir/build.make CMakeFiles/matrixLib_test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/matiss/Desktop/matLib/build/CMakeFiles --progress-num=17,18 "Built target matrixLib_test"
+.PHONY : CMakeFiles/matrixLib_test.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/matrixLib_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles 18
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/matrixLib_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matiss/Desktop/matLib/build/CMakeFiles 0
+.PHONY : CMakeFiles/matrixLib_test.dir/rule
+
+# Convenience name for target.
+matrixLib_test: CMakeFiles/matrixLib_test.dir/rule
+.PHONY : matrixLib_test
+
+# clean rule for target.
+CMakeFiles/matrixLib_test.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/matrixLib_test.dir/build.make CMakeFiles/matrixLib_test.dir/clean
+.PHONY : CMakeFiles/matrixLib_test.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

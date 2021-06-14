@@ -1,0 +1,13 @@
+# Target labels
+ googletest
+# Source files and their labels
+/Users/matiss/Desktop/matLib/build/CMakeFiles/googletest
+/Users/matiss/Desktop/matLib/build/CMakeFiles/googletest.rule
+/Users/matiss/Desktop/matLib/build/CMakeFiles/googletest-complete.rule
+/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-build.rule
+/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-configure.rule
+/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-download.rule
+/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-install.rule
+/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-mkdir.rule
+/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-patch.rule
+/Users/matiss/Desktop/matLib/build/vendor/gtm/src/googletest-stamp/googletest-update.rule

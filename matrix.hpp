@@ -6,22 +6,16 @@
  * @section DESCRIPTION
  *
  * The matrix library implements matrix transpose, multiplication
- * and addition in C++.
+ * and addition.
  */
 
-using namespace std;
-
-template <typename num, size_t rows, size_t cols>
+template <typename T, size_t rows, size_t cols>
 
 class Matrix {
 public:
     
-    typedef num row_type[cols];
-    typedef row_type matrix_type[rows];
-    
-    matrix_type _matrix;
-    size_t _r;
-    size_t _c;
+    typedef T RowType[cols];
+    typedef RowType MatrixType[rows];
 
     /**
     * Constructor that declares a matrix of a given size with
@@ -31,11 +25,9 @@ public:
     Matrix() {
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                _matrix[i][j] = 0;
+                matrix_[i][j] = 0;
             }
         }
-        _r = rows;
-        _c = cols;
     }
 
     /**
@@ -44,15 +36,13 @@ public:
     * @param matrix is a 2D array that we want to use as a matrix
     */
     
-    Matrix (const matrix_type &matrix) {
+    Matrix (const MatrixType &matrix) {
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                _matrix[i][j] = matrix[i][j];
+                matrix_[i][j] = matrix[i][j];
                 
             }
         }
-        _r = rows;
-        _c = cols;
     }
     
     /**
@@ -61,16 +51,16 @@ public:
     * @return Matrix object that is the transpose of the current matrix.
     */
 
-    Matrix<num, cols, rows> transpose() {
-        num T[cols][rows];
+    Matrix<T, cols, rows> transpose() {
+        T trans_mat[cols][rows];
         
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                T[j][i] = _matrix[i][j];
+                trans_mat[j][i] = matrix_[i][j];
             }
         }
         
-        Matrix<num,cols,rows> t(T);
+        Matrix<T,cols,rows> t(trans_mat);
         return t;
     }
 
@@ -81,8 +71,8 @@ public:
     * @param i is the index of the row for the value
     * @param j is the index of the column for the value
     */
-    void setij(num val, size_t i, size_t j) {
-        _matrix[i][j] = val;
+    void setij(T val, size_t i, size_t j) {
+        matrix_[i][j] = val;
     }
 
     /**
@@ -93,8 +83,8 @@ public:
     * 
     * @return the value in the requested index
     */
-    num getij(size_t i, size_t j) {
-        return _matrix[i][j];
+    T getij(size_t i, size_t j) {
+        return matrix_[i][j];
     }
 
     /**
@@ -104,14 +94,14 @@ public:
     * 
     * @return a new Matrix object that is the sum of the given two matrices
     */
-    Matrix<num,rows,cols> operator+ (Matrix<num,rows,cols> &matrix) {
-        num mat3[rows][cols];
+    Matrix<T,rows,cols> operator+ (Matrix<T,rows,cols> &matrix) {
+        T mat3[rows][cols];
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                mat3[i][j] = _matrix[i][j] + matrix._matrix[i][j];
+                mat3[i][j] = matrix_[i][j] + matrix.matrix_[i][j];
             }
         }
-        Matrix<num,rows,cols> sum(mat3);
+        Matrix<T,rows,cols> sum(mat3);
         return sum;
     }
 
@@ -123,14 +113,14 @@ public:
     * @return a new Matrix object that is the difference between the given two matrices
     */
 
-    Matrix<num,rows,cols> operator- (Matrix<num,rows,cols> &matrix) {
-        num mat3[rows][cols];
+    Matrix<T,rows,cols> operator- (const Matrix<T,rows,cols> &matrix) {
+        T mat3[rows][cols];
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                mat3[i][j] = _matrix[i][j] - matrix._matrix[i][j];
+                mat3[i][j] = matrix_[i][j] - matrix.matrix_[i][j];
             }
         }
-        Matrix<num,rows,cols> diff(mat3);
+        Matrix<T,rows,cols> diff(mat3);
         return diff;
     }
     
@@ -142,21 +132,21 @@ public:
     * @return a new Matrix object that is the multiplication of the given two matrices
     */
     template <size_t cols2>
-    Matrix<num,rows,cols2> operator* (const Matrix<num,cols,cols2> &matrix) {
-        num mult[rows][cols2];
-        num sum;
+    Matrix<T,rows,cols2> operator* (Matrix<T,cols,cols2> &matrix) {
+        T mult[rows][cols2];
+        T sum;
         
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols2; j++) {
                 sum = 0;
                 for (size_t k = 0; k < cols; k++) {
-                    sum += _matrix[i][k] * matrix._matrix[k][j];
+                    sum += matrix_[i][k] * matrix.getij(k,j);
                 }
                 mult[i][j] = sum;
             }
         }
         
-        Matrix<num,rows,cols2> M(mult);
+        Matrix<T,rows,cols2> M(mult);
         return M;
     };
     
@@ -169,15 +159,15 @@ public:
     * @return a new Matrix object that is the given Matrix multiplied by val
     */
 
-    Matrix<num,rows,cols> operator* (const num val) {
-        num result[rows][cols];
+    Matrix<T,rows,cols> operator* (const T val) {
+        T result[rows][cols];
         
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                result[i][j] = _matrix[i][j] * val;
+                result[i][j] = matrix_[i][j] * val;
             }
         }
-        Matrix<num,rows,cols> mult(result);
+        Matrix<T,rows,cols> mult(result);
         return mult;
     }
 
@@ -189,11 +179,11 @@ public:
     * @return Matrix, which is the same matrix multiplied by val
     */
     
-    Matrix<num,rows,cols> operator*= (const num val) {
+    Matrix<T,rows,cols> operator*= (const T val) {
         
         for (size_t i = 0; i < rows; i++) {
             for (size_t j = 0; j < cols; j++) {
-                _matrix[i][j] = _matrix[i][j] * val;
+                matrix_[i][j] = matrix_[i][j] * val;
             }
         }
         return *this;
@@ -206,11 +196,11 @@ public:
     void print() {
             for (size_t i = 0; i < rows; i++) {
                 for (size_t j = 0; j < cols; j++) {
-                    cout << _matrix[i][j] << " ";
+                    std::cout << matrix_[i][j] << " ";
                 }
-                cout << endl;
+                std::cout << std::endl;
             }
-        cout << endl;
+        std::cout << std::endl;
     }
 
     /**
@@ -220,7 +210,7 @@ public:
     */
     
     size_t row_size() {
-        return _r;
+        return rows;
     }
 
     /**
@@ -230,8 +220,11 @@ public:
     */
     
     size_t col_size() {
-        return _c;
+        return cols;
     }
+
+private:
+    MatrixType matrix_;
 
     
 };

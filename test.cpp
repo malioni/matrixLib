@@ -1,24 +1,133 @@
 //
-// Testing script for the matrix library, testing matrix addition, 
+// Testing script for the matrix library, testing matrix subtraction, 
 // multiplication and transpose. 
 //
 
 #include <iostream>
 #include <matrix.hpp>
+#include "gtest/gtest.h"
 
-int main() {
+using namespace std;
 
-    // Matrix of doubles
-    typedef Matrix<double,3,4> M34;
-    typedef Matrix<double,4,3> M43;
-    typedef Matrix<double,4,4> M44;
-    typedef Matrix<double,3,3> M33;
+// Doubles
+typedef Matrix<double,3,4> M34d;
+typedef Matrix<double,4,3> M43d;
+typedef Matrix<double,4,4> M44d;
+typedef Matrix<double,3,3> M33d;
 
+// Integers
+typedef Matrix<int,4,9> M49i;
+typedef Matrix<int,9,4> M94i;
+typedef Matrix<int,4,4> M44i;
+typedef Matrix<int,9,9> M99i;
+
+TEST (AdditionTest,Doubles) {
     double matrixd[3][4] = {
         {1.1,2.2,3.3,4.4},
         {5.5,6.6,7.7,8.8},
         {9.9,10.1,11.2,12.3}
         };
+    double matrixd2[3][4] = {
+        {2.2,4.4,6.6,8.8},
+        {11.0,13.2,15.4,17.6},
+        {19.8,20.2,22.4,24.6}
+        };
+    M34d matrixd1(matrixd);
+    M34d matrixsumd = matrixd1 + matrixd1;
+
+    for (size_t i = 0; i < 3; i++) {
+        for (size_t j = 0; j < 4; j++) {
+            EXPECT_NEAR (matrixd2[i][j], matrixsumd.getij(i,j), 0.00000001);
+        }
+    }
+
+}
+
+TEST (AdditionTest, Ints) {
+    int matrix[4][9] = {
+        {5,25,3,8,7,23,1,0,5},
+        {8,3,5,9,5,7,0,1,2},
+        {7,32,1,8,0,7,4,2,4},
+        {0,7,4,8,4,2,5,8,9}
+        };
+    int matrix2[4][9] = {
+        {10,50,6,16,14,46,2,0,10},
+        {16,6,10,18,10,14,0,2,4},
+        {14,64,2,16,0,14,8,4,8},
+        {0,14,8,16,8,4,10,16,18}
+        };
+
+    M49i matrix1(matrix);
+    M49i matrixsumi = matrix1 + matrix1;
+
+    for (size_t i = 0; i < 4; i++) {
+        for(size_t j = 0; j < 9; j++) {
+            EXPECT_EQ (matrix2[i][j], matrixsumi.getij(i,j));
+        }
+    }
+
+}
+
+TEST (TransposeTest, Doubles) {
+    double matrixd[3][4] = {
+        {1.1,2.2,3.3,4.4},
+        {5.5,6.6,7.7,8.8},
+        {9.9,10.1,11.2,12.3}
+        };
+    double matrixd2[4][3] = {
+        {1.1,5.5,9.9},
+        {2.2,6.6,10.1},
+        {3.3,7.7,11.2},
+        {4.4,8.8,12.3}
+    };
+
+    M34d matrix1(matrixd);
+    M43d matrix2 = matrix1.transpose();
+
+    for (size_t i = 0; i < 4; i++) {
+        for(size_t j = 0; j < 3; j++) {
+            EXPECT_NEAR (matrixd2[i][j], matrix2.getij(i,j),0.0000000001);
+        }
+    }
+
+}
+
+TEST (TransposeTest, Ints) {
+    int matrix[4][9] = {
+        {5,25,3,8,7,23,1,0,5},
+        {8,3,5,9,5,7,0,1,2},
+        {7,32,1,8,0,7,4,2,4},
+        {0,7,4,8,4,2,5,8,9}
+        };
+
+    int matrixi[9][4] = {
+        {5,8,7,0},
+        {25,3,32,7},
+        {3,5,1,4},
+        {8,9,8,8},
+        {7,5,0,4},
+        {23,7,7,2},
+        {1,0,4,5},
+        {0,1,2,8},
+        {5,2,4,9}
+    };
+
+    M49i matrix1(matrix);
+    M94i matrix2 = matrix1.transpose();
+
+    for (size_t i = 0; i < 4; i++) {
+        for(size_t j = 0; j < 3; j++) {
+            EXPECT_EQ (matrixi[i][j], matrix2.getij(i,j));
+        }
+    }
+}
+
+TEST (MultiplicationTest, Doubles) {
+    double matrixd[3][4] = {
+        {1.1,2.2,3.3,4.4},
+        {5.5,6.6,7.7,8.8},
+        {9.9,10.1,11.2,12.3}
+    };
 
     double testd1[4][4] = {
         {129.47, 138.71, 156.86, 175.01},
@@ -33,51 +142,33 @@ int main() {
         {124.19, 315.59, 476.75}
     };
 
-    M34 matrixd1(matrixd);
-    M44 testdm1(testd1);
-    M33 testdm2(testd2);
+    M34d matrix1(matrixd);
+    M43d matrix2 = matrix1.transpose();
+    M33d matrixm1 = matrix1 * matrix2;
+    M44d matrixm2 = matrix2 * matrix1;
 
-    cout << "Matrix of doubles" << endl;
-    cout << endl;
+    for (size_t i = 0; i < 4; i++) {
+        for(size_t j = 0; j < 4; j++) {
+            EXPECT_NEAR (testd1[i][j], matrixm2.getij(i,j),0.00000001);
+        }
+    }
 
-    cout << "Given matrix:" << endl;
-    matrixd1.print();
-    cout << "It's transpose is: " << endl;
-    M43 matrixd2 = matrixd1.transpose();
-    matrixd2.print();
-    cout << "Matrix multiplied by it's transpose should be: " << endl;
-    testdm2.print();
-    cout << endl;
-    cout << "The multiplication algorithm returns:" << endl;
-    M33 matrixd3 = matrixd1 * matrixd2;
-    matrixd3.print();
-    cout << "The difference between the two is:" << endl;
-    M33 matrixd6 = matrixd3 - testdm2;
-    matrixd6.print();
-    cout << "Matrix transpose multiplied by the matrix should be: " << endl;
-    testdm1.print();
-    cout << endl;
-    cout << "The multiplication algorithm returns:" << endl;
-    M44 matrixd4 = matrixd2 * matrixd1;
-    matrixd4.print();
-    cout << "The difference between the two is:" << endl;
-    M44 matrixd5 = matrixd4 - testdm1;
-    matrixd5.print();
+    for (size_t i = 0; i < 3; i++) {
+        for(size_t j = 0; j < 3; j++) {
+            EXPECT_NEAR (testd2[i][j], matrixm1.getij(i,j),0.00000001);
+        }
+    }
 
-    cout << endl;
 
-     // Matrix of integers
-    typedef Matrix<int,4,9> M49;
-    typedef Matrix<int,9,4> M94;
-    typedef Matrix<int,4,4> M44i;
-    typedef Matrix<int,9,9> M99;
+}
 
+TEST (MultiplicationTest, Ints) {
     int matrix[4][9] = {
         {5,25,3,8,7,23,1,0,5},
         {8,3,5,9,5,7,0,1,2},
         {7,32,1,8,0,7,4,2,4},
         {0,7,4,8,4,2,5,8,9}
-        };
+    };
 
     int test1[4][4] = {
         {1327, 408, 1087, 375},
@@ -98,35 +189,59 @@ int main() {
         {69, 322, 65, 162, 81, 175, 66, 82, 126}
     };
 
-    M49 matrix1(matrix);
-    M44i testm1(test1);
-    M99 testm2(test2);
+    M49i matrix1(matrix);
+    M94i matrix2 = matrix1.transpose();
+    M44i matrixm1 = matrix1 * matrix2;
+    M99i matrixm2 = matrix2 * matrix1;
 
-    cout << "Matrix of integers" << endl;
-    cout << endl;
+    for (size_t i = 0; i < 4; i++) {
+        for(size_t j = 0; j < 4; j++) {
+            EXPECT_EQ (test1[i][j], matrixm1.getij(i,j));
+        }
+    }
 
-    cout << "Given matrix:" << endl;
-    matrix1.print();
-    cout << "It's transpose is: " << endl;
-    M94 matrix2 = matrix1.transpose();
-    matrix2.print();
-    cout << "Matrix multiplied by it's transpose should be: " << endl;
-    testm1.print();
-    cout << endl;
-    cout << "The multiplication algorithm returns:" << endl;
-    M44i matrix3 = matrix1 * matrix2;
-    matrix3.print();
-    cout << "The difference between the two is:" << endl;
-    M44i matrix6 = matrix3 - testm1;
-    matrix6.print();
-    cout << "Matrix transpose multiplied by the matrix should be: " << endl;
-    testm2.print();
-    cout << endl;
-    cout << "The multiplication algorithm returns:" << endl;
-    M99 matrix4 = matrix2 * matrix1;
-    matrix4.print();
-    cout << "The difference between the two is:" << endl;
-    M99 matrix5 = matrix4 - testm2;
-    matrix5.print();
+    for (size_t i = 0; i < 9; i++) {
+        for(size_t j = 0; j < 9; j++) {
+            EXPECT_EQ (test2[i][j], matrixm2.getij(i,j));
+        }
+    }
+}
 
+TEST (SubtractionTest, Doubles) {
+    double matrixd[3][4] = {
+        {1.1,2.2,3.3,4.4},
+        {5.5,6.6,7.7,8.8},
+        {9.9,10.1,11.2,12.3}
+        };
+    M34d matrixd1(matrixd);
+    M34d matrixdiffd = matrixd1 - matrixd1;
+
+    for (size_t i = 0; i < 3; i++) {
+        for (size_t j = 0; j < 4; j++) {
+            EXPECT_NEAR (0.0, matrixdiffd.getij(i,j), 0.00000001);
+        }
+    }
+}
+
+TEST (SubtractionTest, Ints) {
+    int matrix[4][9] = {
+        {5,25,3,8,7,23,1,0,5},
+        {8,3,5,9,5,7,0,1,2},
+        {7,32,1,8,0,7,4,2,4},
+        {0,7,4,8,4,2,5,8,9}
+        };
+
+    M49i matrix1(matrix);
+    M49i matrixdiffi = matrix1 - matrix1;
+
+    for (size_t i = 0; i < 4; i++) {
+        for(size_t j = 0; j < 9; j++) {
+            EXPECT_EQ (0, matrixdiffi.getij(i,j));
+        }
+    }
+}
+
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
